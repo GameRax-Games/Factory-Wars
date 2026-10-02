@@ -2,26 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Factory Wars by Gamerax</title>
 <style>
-  body { margin:0; background:#111; color:white; font-family: sans-serif; text-align:center; }
-  header { padding:20px; background:#222; }
-  h1 { color:#ffcc00; margin:0; }
-  .game-box { width:100%; height:85vh; background:black; }
-  iframe { width:100%; height:100%; border:0; }
-  .btn { display:inline-block; margin:10px; padding:12px 20px; background:#ffcc00; color:black; text-decoration:none; font-weight:bold; border-radius:8px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0a0a0a; font-family: sans-serif; }
+  
+  #loader {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:#111; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; z-index:10;
+    transition: opacity 0.5s;
+  }
+  #loader h1 { color:#ffcc00; font-size:32px; letter-spacing:2px; }
+  #loader p { color:#aaa; margin-top:10px; }
+  .spinner {
+    margin-top:25px; width:50px; height:50px;
+    border:4px solid #333; border-top:4px solid #ffcc00;
+    border-radius:50%; animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  iframe { width:100%; height:100%; border:0; display:block; background:black; }
 </style>
 </head>
 <body>
-  <header>
-    <h1>FACTORY WARS by Gamerax</h1>
-    <p>Mindustry Custom Edition - Play in Browser</p>
-    <a class="btn" href="#" onclick="document.getElementById('game').src='https://mindustrygame.github.io/'">PLAY NOW</a>
-    <a class="btn" style="background:#444; color:white;" href="https://github.com/Anuken/Mindustry/releases">Download APK</a>
-  </header>
-  <div class="game-box">
-    <iframe id="game" src="about:blank" allow="fullscreen"></iframe>
-  </div>
+
+<div id="loader">
+  <h1>FACTORY WARS</h1>
+  <p>by Gamerax - Loading...</p>
+  <div class="spinner"></div>
+</div>
+
+<iframe id="game" src="https://mindustrygame.github.io/" allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write" allowfullscreen></iframe>
+
+<script>
+  // 3 second baad loader hat jayega aur game dikhega
+  const loader = document.getElementById('loader');
+  const game = document.getElementById('game');
+  game.onload = () => {
+    setTimeout(() => {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }, 2000);
+  };
+</script>
+
 </body>
 </html>
